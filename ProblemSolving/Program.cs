@@ -5,6 +5,11 @@ public interface IProblem
     void Solve();
 }
 
+public interface IMyTests
+{
+    void Solve();
+}
+
 public class GetTotalXProblem : IProblem
 {
     private readonly List<int> _a = [2, 4];
@@ -105,41 +110,7 @@ public class AlmostIncreasingSequenceProblem : IProblem
     }
 }
 
-// https://www.hackerrank.com/challenges/the-birthday-bar/problem
-public class BirthdayProblem : IProblem
-{
-    private readonly List<int> _s = [1, 2, 1, 3, 2];
-
-    private const int D = 3;
-
-    private const int M = 2;
-
-
-    public void Solve()
-    {
-        Console.WriteLine(Birthday(_s, D, M));
-    }
-
-    private static int Birthday(List<int> s, int d, int m)
-    {
-        var count = 0;
-
-        for (var i = 0; i < s.Count - m; i++)
-        {
-            if (s.Skip(i).Take(m).Sum() == d)
-            {
-                count++;
-            }
-        }
-
-        return count;
-
-        // There is another alternative; I'm not using it because this code isn't mine :)
-        // return Enumerable.Range(0, s.Count - m + 1)
-        //     .Count(i => s.Skip(i).Take(m).Sum() == d);
-    }
-}
-
+// For Test
 public class TwoSumProblem : IProblem
 {
     private readonly int[] _s = [2, 7, 11, 15];
@@ -155,22 +126,98 @@ public class TwoSumProblem : IProblem
             Console.WriteLine(num);
         }
     }
-    
+
+    // Some Test
     private static int[] TwoSum(int[] nums, int target)
     {
+        // for (var i = 0; i < nums.Length; i++)
+        // {
+        //     for (var j = i + 1; j < nums.Length; j++)
+        //     {
+        //         if (nums[i] + nums[j] == target)
+        //         {
+        //             return [i, j];
+        //         }
+        //     }
+        //
+        // }
+        //
+        // return [];
+
+        var map = new Dictionary<int, int>();
         for (var i = 0; i < nums.Length; i++)
         {
-            for (var j = i + 1; j < nums.Length; j++)
+            var complement = target - nums[i];
+            if (map.TryGetValue(complement, out var value))
             {
-                if (nums[i] + nums[j] == target)
-                {
-                    return [i, j];
-                }
+                return [value, i];
             }
 
+            map[nums[i]] = i;
         }
-        
+
         return [];
+    }
+}
+
+// https://www.hackerrank.com/challenges/the-birthday-bar/problem
+public class BirthdayProblem : IProblem
+{
+    private readonly List<int> _s = [4, 5, 4, 2, 4, 5, 2, 3, 2, 1, 1, 5, 4];
+
+    private const int D = 15;
+
+    private const int M = 4;
+
+
+    public void Solve()
+    {
+        Console.WriteLine(Birthday(_s, D, M));
+    }
+
+    private static int Birthday(List<int> s, int d, int m)
+    {
+        return s.Where((_, i) => s.Skip(i).Take(m).Sum() == d).Count();
+
+        // var count = 0;
+        //
+        // for (var i = 0; i < s.Count; i++)
+        // {
+        //     if (s.Skip(i).Take(m).Sum() == d)
+        //     {
+        //         count++;
+        //     }
+        // }
+        //
+        // return count;
+
+        // There is another alternative; I'm not using it because this code isn't mine :)
+        // return Enumerable.Range(0, s.Count - m + 1)
+        //     .Count(i => s.Skip(i).Take(m).Sum() == d);
+    }
+}
+
+
+
+//Test For Dictionary
+public class DictionaryTest : IMyTests
+{
+    private readonly Dictionary<string, List<string>> _test = new();
+
+    public void Solve()
+    {
+        _test.Add("test1", ["1", "2", "3"]);
+        _test.Add("test2", ["4", "5", "6"]);
+        _test.Add("test3", ["7", "8", "9"]);
+
+        foreach (var (key, value) in _test)
+        {
+            Console.Write(key);
+            foreach (var item in value)
+            {
+                Console.WriteLine($"\t{item}");
+            }
+        }
     }
 }
 
@@ -180,14 +227,28 @@ internal abstract class Program
     {
         var problems = new List<IProblem>
         {
-            //new AlmostIncreasingSequenceProblem()
-            //   new BirthdayProblem()
-            new TwoSumProblem()
+            // new AlmostIncreasingSequenceProblem()
+            // new BirthdayProblem()
+            // new TwoSumProblem()
         };
+        if (problems == null) throw new ArgumentNullException(nameof(problems));
 
         foreach (var problem in problems)
         {
             problem.Solve();
+        }
+
+        // Tests
+
+        var tests = new List<IMyTests>
+        {
+            // new DictionaryTest()
+        };
+        if (tests == null) throw new ArgumentNullException(nameof(tests));
+
+        foreach (var test in tests)
+        {
+            test.Solve();
         }
     }
 }

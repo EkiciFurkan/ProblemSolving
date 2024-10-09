@@ -223,6 +223,29 @@ public class DivisibleSumPairsProblem : IProblem
                 result++;
             }
         }
+
+        return result;
+    }
+}
+
+// https://www.hackerrank.com/challenges/migratory-birds/problem?isFullScreen=true
+public class MigratoryBirdsProblem : IProblem
+{
+    private readonly List<int> _ar = [1, 3, 3, 3, 3, 2, 6, 1, 2];
+
+    public void Solve()
+    {
+        var result = MigratoryBirds(_ar);
+        Console.WriteLine(result);
+    }
+
+    private static int MigratoryBirds(List<int> arr)
+    {
+        var result = arr.GroupBy(x => x)
+            .OrderByDescending(g => g.Count())
+            .ThenBy(g => g.Key)
+            .Select(g => g.Key)
+            .First();
         return result;
     }
 }
@@ -258,7 +281,8 @@ internal abstract class Program
             // new AlmostIncreasingSequenceProblem()
             // new BirthdayProblem()
             // new TwoSumProblem()
-            new DivisibleSumPairsProblem()
+            // new DivisibleSumPairsProblem()
+            new MigratoryBirdsProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 

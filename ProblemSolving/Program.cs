@@ -197,7 +197,35 @@ public class BirthdayProblem : IProblem
     }
 }
 
+// https://www.hackerrank.com/challenges/divisible-sum-pairs/problem?isFullScreen=true
+public class DivisibleSumPairsProblem : IProblem
+{
+    private const int N = 6;
 
+    private const int K = 3;
+
+    private readonly List<int> _ar = [1, 3, 2, 6, 1, 2];
+
+
+    public void Solve()
+    {
+        Console.WriteLine(DivisibleSumPairs(N, K, _ar));
+    }
+
+    private static int DivisibleSumPairs(int n, int k, List<int> ar)
+    {
+        var result = 0;
+        for (var i = 0; i < ar.Count; i++)
+        {
+            for (var j = i + 1; j < ar.Count; j++)
+            {
+                if ((ar[i] + ar[j]) % k != 0) continue;
+                result++;
+            }
+        }
+        return result;
+    }
+}
 
 //Test For Dictionary
 public class DictionaryTest : IMyTests
@@ -230,6 +258,7 @@ internal abstract class Program
             // new AlmostIncreasingSequenceProblem()
             // new BirthdayProblem()
             // new TwoSumProblem()
+            new DivisibleSumPairsProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 

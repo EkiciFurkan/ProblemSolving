@@ -250,6 +250,33 @@ public class MigratoryBirdsProblem : IProblem
     }
 }
 
+// https://www.hackerrank.com/challenges/day-of-the-programmer/problem?isFullScreen=true
+
+public class DayOfProgrammerProblem : IProblem
+{
+    private const int Year = 2017;
+
+    public void Solve()
+    {
+        Console.WriteLine(DayOfProgrammer(Year));
+    }
+
+    private static string DayOfProgrammer(int year)
+    {
+        if (year == 1918)
+        {
+            return "26.09.1918";
+        }
+        
+        var isJulianLeapYear = (year < 1918 && year % 4 == 0);
+        var isGregorianLeapYear = (year > 1918 && (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)));
+        var isLeapYear = isJulianLeapYear || isGregorianLeapYear;
+        
+        return isLeapYear ? $"12.09.{year}" : $"13.09.{year}";
+    }
+}
+
+
 //Test For Dictionary
 public class DictionaryTest : IMyTests
 {
@@ -282,7 +309,7 @@ internal abstract class Program
             // new BirthdayProblem()
             // new TwoSumProblem()
             // new DivisibleSumPairsProblem()
-            new MigratoryBirdsProblem()
+            new DayOfProgrammerProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 

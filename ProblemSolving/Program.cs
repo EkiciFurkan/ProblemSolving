@@ -267,15 +267,67 @@ public class DayOfProgrammerProblem : IProblem
         {
             return "26.09.1918";
         }
-        
+
         var isJulianLeapYear = (year < 1918 && year % 4 == 0);
         var isGregorianLeapYear = (year > 1918 && (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)));
         var isLeapYear = isJulianLeapYear || isGregorianLeapYear;
-        
+
         return isLeapYear ? $"12.09.{year}" : $"13.09.{year}";
     }
 }
 
+// https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
+
+public class BonAppetitProblem : IProblem
+{
+    private readonly List<int> _ar = [3, 10, 2, 9];
+    private const int K = 1;
+    private const int B = 12;
+
+
+    public void Solve()
+    {
+        BonAppetit(_ar, K, B);
+    }
+
+    private static void BonAppetit(List<int> bill, int k, int b)
+    {
+        var sumBill = (bill.Sum() - bill[k]) / 2;
+
+        if (sumBill == b)
+        {
+            Console.WriteLine("Bon Appetit");
+        }
+        else
+        {
+            Console.WriteLine(b - sumBill);
+        }
+    }
+}
+
+// https://www.hackerrank.com/challenges/sock-merchant/problem?isFullScreen=true
+public class SockMerchantProblem : IProblem
+{
+    private readonly List<int> _ar = [10, 20, 20, 10, 10, 30, 50, 10, 20];
+    private const int K = 1;
+
+    public void Solve()
+    {
+        SockMerchant(K, _ar);
+    }
+
+    private static int SockMerchant(int n, List<int> ar)
+    {
+        var elementCounts = ar.GroupBy(x => x)
+            .ToDictionary(g => g.Key, g => g.Count());
+
+        var result = elementCounts.Sum(element => element.Value / 2);
+
+        Console.WriteLine(result);
+
+        return result;
+    }
+}
 
 //Test For Dictionary
 public class DictionaryTest : IMyTests
@@ -309,7 +361,9 @@ internal abstract class Program
             // new BirthdayProblem()
             // new TwoSumProblem()
             // new DivisibleSumPairsProblem()
-            new DayOfProgrammerProblem()
+            // new DayOfProgrammerProblem()
+            // new BonAppetitProblem()
+            new SockMerchantProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 

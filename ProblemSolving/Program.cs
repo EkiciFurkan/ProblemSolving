@@ -329,6 +329,34 @@ public class SockMerchantProblem : IProblem
     }
 }
 
+// https://www.hackerrank.com/challenges/drawing-book/problem?isFullScreen=true
+
+public class PageCountProblem : IProblem
+{
+    private const int N = 8;
+    private const int P = 2;
+
+
+    public void Solve()
+    {
+        Console.WriteLine(PageCount(N, P));
+    }
+
+    private static int PageCount(int n, int p)
+    {
+        if (p == 1 || p == n)
+        {
+            return 0;
+        }
+
+        var frontFlips = p / 2;
+        var backFlips = n / 2 - p / 2;
+        
+        return Math.Min(frontFlips, backFlips);
+
+    }
+}
+
 //Test For Dictionary
 public class DictionaryTest : IMyTests
 {
@@ -363,7 +391,8 @@ internal abstract class Program
             // new DivisibleSumPairsProblem()
             // new DayOfProgrammerProblem()
             // new BonAppetitProblem()
-            new SockMerchantProblem()
+            // new SockMerchantProblem()
+            new PageCountProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 

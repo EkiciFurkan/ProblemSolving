@@ -351,9 +351,48 @@ public class PageCountProblem : IProblem
 
         var frontFlips = p / 2;
         var backFlips = n / 2 - p / 2;
-        
-        return Math.Min(frontFlips, backFlips);
 
+        return Math.Min(frontFlips, backFlips);
+    }
+}
+
+// https://www.hackerrank.com/challenges/counting-valleys/problem?isFullScreen=true
+
+public class CountingValleysProblem : IProblem
+{
+    private const int S = 12;
+    private const string P = "DDUUDDUDUUUD";
+
+
+    public void Solve()
+    {
+        Console.WriteLine(CountingValleys(S, P));
+    }
+
+    private static int CountingValleys(int steps, string path)
+    {
+        var seaLevel = 0;
+        var valleyCount = 0;
+
+        foreach (var step in path)
+        {
+            switch (step)
+            {
+                case 'U':
+                    seaLevel++;
+                    break;
+                case 'D':
+                    seaLevel--;
+                    break;
+            }
+
+            if (seaLevel == 0 && step == 'U')
+            {
+                valleyCount++;
+            }
+        }
+
+        return valleyCount;
     }
 }
 
@@ -392,7 +431,8 @@ internal abstract class Program
             // new DayOfProgrammerProblem()
             // new BonAppetitProblem()
             // new SockMerchantProblem()
-            new PageCountProblem()
+            // new PageCountProblem()
+            new CountingValleysProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 

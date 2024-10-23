@@ -110,56 +110,6 @@ public class AlmostIncreasingSequenceProblem : IProblem
     }
 }
 
-// For Test
-public class TwoSumProblem : IProblem
-{
-    private readonly int[] _s = [2, 7, 11, 15];
-
-    private const int D = 9;
-
-
-    public void Solve()
-    {
-        var result = TwoSum(_s, D);
-        foreach (var num in result)
-        {
-            Console.WriteLine(num);
-        }
-    }
-
-    // Some Test
-    private static int[] TwoSum(int[] nums, int target)
-    {
-        // for (var i = 0; i < nums.Length; i++)
-        // {
-        //     for (var j = i + 1; j < nums.Length; j++)
-        //     {
-        //         if (nums[i] + nums[j] == target)
-        //         {
-        //             return [i, j];
-        //         }
-        //     }
-        //
-        // }
-        //
-        // return [];
-
-        var map = new Dictionary<int, int>();
-        for (var i = 0; i < nums.Length; i++)
-        {
-            var complement = target - nums[i];
-            if (map.TryGetValue(complement, out var value))
-            {
-                return [value, i];
-            }
-
-            map[nums[i]] = i;
-        }
-
-        return [];
-    }
-}
-
 // https://www.hackerrank.com/challenges/the-birthday-bar/problem
 public class BirthdayProblem : IProblem
 {
@@ -251,7 +201,6 @@ public class MigratoryBirdsProblem : IProblem
 }
 
 // https://www.hackerrank.com/challenges/day-of-the-programmer/problem?isFullScreen=true
-
 public class DayOfProgrammerProblem : IProblem
 {
     private const int Year = 2017;
@@ -277,7 +226,6 @@ public class DayOfProgrammerProblem : IProblem
 }
 
 // https://www.hackerrank.com/challenges/bon-appetit/problem?isFullScreen=true
-
 public class BonAppetitProblem : IProblem
 {
     private readonly List<int> _ar = [3, 10, 2, 9];
@@ -330,7 +278,6 @@ public class SockMerchantProblem : IProblem
 }
 
 // https://www.hackerrank.com/challenges/drawing-book/problem?isFullScreen=true
-
 public class PageCountProblem : IProblem
 {
     private const int N = 8;
@@ -357,7 +304,6 @@ public class PageCountProblem : IProblem
 }
 
 // https://www.hackerrank.com/challenges/counting-valleys/problem?isFullScreen=true
-
 public class CountingValleysProblem : IProblem
 {
     private const int S = 12;
@@ -393,6 +339,64 @@ public class CountingValleysProblem : IProblem
         }
 
         return valleyCount;
+    }
+}
+
+// https://www.hackerrank.com/challenges/electronics-shop/problem?isFullScreen=true
+public class GetMoneySpentProblem : IProblem
+{
+    private readonly int[] _k = [40, 50, 60];
+    private readonly int[] _d = [5, 8, 12];
+    private const int B = 60;
+
+
+    public void Solve()
+    {
+        Console.WriteLine(GetMoneySpent(_k, _d, B));
+    }
+
+    private static int GetMoneySpent(int[] keyboards, int[] drives, int b)
+    {
+        if (b < drives.Min() + keyboards.Min())
+        {
+            return -1;
+        }
+
+        var sum = keyboards.SelectMany(x => drives.Select(y => x + y)).ToList();
+        var maxUnderB = 0;
+
+        foreach (var item in sum.Where(item => item <= b && item > maxUnderB))
+        {
+            maxUnderB = item;
+        }
+
+        return maxUnderB;
+    }
+}
+
+// https://www.hackerrank.com/challenges/cats-and-a-mouse/problem?isFullScreen=true
+public class CatAndMouseProblem : IProblem
+{
+    private const int X = 1;
+    private const int Y = 3;
+    private const int Z = 2;
+
+    public void Solve()
+    {
+        Console.WriteLine(CatAndMouse(X, Y, Z));
+    }
+
+    private static string CatAndMouse(int x, int y, int z)
+    {
+        var distanceA = Math.Abs(x - z);
+        var distanceB = Math.Abs(y - z);
+
+        if (distanceA > distanceB)
+        {
+            return "Cat B";
+        }
+
+        return distanceA < distanceB ? "Cat A" : "Mouse C";
     }
 }
 
@@ -432,7 +436,9 @@ internal abstract class Program
             // new BonAppetitProblem()
             // new SockMerchantProblem()
             // new PageCountProblem()
-            new CountingValleysProblem()
+            // new CountingValleysProblem()
+            // new GetMoneySpentProblem()
+            new CatAndMouseProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 

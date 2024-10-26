@@ -1,4 +1,6 @@
-﻿namespace ProblemSolving;
+﻿using System.Threading.Channels;
+
+namespace ProblemSolving;
 
 public interface IProblem
 {
@@ -400,6 +402,80 @@ public class CatAndMouseProblem : IProblem
     }
 }
 
+// https://www.hackerrank.com/challenges/magic-square-forming/problem?isFullScreen=true
+public class FormingMagicSquareProblem : IProblem
+{
+    public void Solve()
+    {
+        var s = new List<List<int>>
+        {
+            new() { 4, 8, 2 },
+            new() { 4, 5, 7 },
+            new() { 6, 1, 6 }
+        };
+
+        Console.WriteLine(FormingMagicSquare(s));
+    }
+
+    private static int FormingMagicSquare(List<List<int>> s)
+    {
+        var magicSquares = new List<int[,]>
+        {
+            new[,] { { 4, 9, 2 }, { 3, 5, 7 }, { 8, 1, 6 } },
+            new[,] { { 4, 3, 8 }, { 9, 5, 1 }, { 2, 7, 6 } },
+            new[,] { { 2, 9, 4 }, { 7, 5, 3 }, { 6, 1, 8 } },
+            new[,] { { 2, 7, 6 }, { 9, 5, 1 }, { 4, 3, 8 } },
+            new[,] { { 8, 1, 6 }, { 3, 5, 7 }, { 4, 9, 2 } },
+            new[,] { { 8, 3, 4 }, { 1, 5, 9 }, { 6, 7, 2 } },
+            new[,] { { 6, 1, 8 }, { 7, 5, 3 }, { 2, 9, 4 } },
+            new[,] { { 6, 7, 2 }, { 1, 5, 9 }, { 8, 3, 4 } }
+        };
+
+        var minCost = int.MaxValue;
+        foreach (var magicSquare in magicSquares)
+        {
+            var cost = 0;
+            for (var i = 0; i < 3; i++)
+            {
+                for (var j = 0; j < 3; j++)
+                {
+                    cost += Math.Abs(s[i][j] - magicSquare[i, j]);
+                }
+            }
+
+            minCost = Math.Min(minCost, cost);
+        }
+
+        return minCost;
+    }
+}
+
+// https://www.hackerrank.com/challenges/picking-numbers/problem?isFullScreen=true
+public class PickingNumbersProblem : IProblem
+{
+    private readonly List<int> _s = [4, 6, 5, 3, 3, 1];
+
+    public void Solve()
+    {
+        Console.WriteLine(PickingNumbers(_s));
+    }
+
+    private static int PickingNumbers(List<int> a)
+    {
+        var grouped = a.GroupBy(i => i).ToDictionary(j => j.Key, j => j.Count());
+        var maxCount = 0;
+
+        foreach (var key in grouped)
+        {
+            var countCurrent = grouped[key.Key];
+            var countNext = grouped.ContainsKey(key.Key + 1) ? grouped[key.Key + 1] : 0;
+            maxCount = Math.Max(maxCount, countCurrent + countNext);
+        }
+        
+        return maxCount;
+    }
+}
+
 //Test For Dictionary
 public class DictionaryTest : IMyTests
 {
@@ -438,7 +514,8 @@ internal abstract class Program
             // new PageCountProblem()
             // new CountingValleysProblem()
             // new GetMoneySpentProblem()
-            new CatAndMouseProblem()
+            // new CatAndMouseProblem()
+            new PickingNumbersProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 

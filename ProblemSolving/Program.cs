@@ -471,8 +471,35 @@ public class PickingNumbersProblem : IProblem
             var countNext = grouped.ContainsKey(key.Key + 1) ? grouped[key.Key + 1] : 0;
             maxCount = Math.Max(maxCount, countCurrent + countNext);
         }
-        
+
         return maxCount;
+    }
+}
+
+// https://leetcode.com/problems/palindrome-number/
+public class PalindromeNumberProblem : IProblem
+{
+    private const int X = 122;
+
+    public void Solve()
+    {
+        Console.WriteLine(IsPalindrome(X));
+    }
+
+    private static bool IsPalindrome(int x)
+    {
+        if (x < 0)
+        {
+            return false;
+        }
+
+        var original = x.ToString();
+
+        var charArray = original.ToCharArray();
+        Array.Reverse(charArray);
+        var reversed = new string(charArray);
+
+        return reversed == original;
     }
 }
 
@@ -515,7 +542,8 @@ internal abstract class Program
             // new CountingValleysProblem()
             // new GetMoneySpentProblem()
             // new CatAndMouseProblem()
-            new PickingNumbersProblem()
+            // new PickingNumbersProblem()
+            new PalindromeNumberProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 

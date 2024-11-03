@@ -503,6 +503,40 @@ public class PalindromeNumberProblem : IProblem
     }
 }
 
+// https://leetcode.com/problems/longest-common-prefix/description/
+public class LongestCommonPrefixProblem : IProblem
+{
+    private readonly string[] _s = ["flower", "flow", "flight"];
+
+
+    public void Solve()
+    {
+        Console.WriteLine(LongestCommonPrefix(_s));
+    }
+
+    private static string LongestCommonPrefix(string[] strs)
+    {
+        var result = "";
+        var referenceItem = strs[0];
+
+        for (var i = 0; i < referenceItem.Length; i++)
+        {
+            var currentChar = referenceItem[i];
+
+            if (strs.All(word => word.Length > i && word[i] == currentChar))
+            {
+                result += currentChar;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        return result;
+    }
+}
+
 //Test For Dictionary
 public class DictionaryTest : IMyTests
 {
@@ -543,7 +577,8 @@ internal abstract class Program
             // new GetMoneySpentProblem()
             // new CatAndMouseProblem()
             // new PickingNumbersProblem()
-            new PalindromeNumberProblem()
+            // new PalindromeNumberProblem()
+            new LongestCommonPrefixProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 

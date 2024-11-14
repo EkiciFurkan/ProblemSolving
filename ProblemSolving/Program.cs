@@ -537,6 +537,70 @@ public class LongestCommonPrefixProblem : IProblem
     }
 }
 
+//https://leetcode.com/problems/3sum/
+public class ThreeSumProblem : IProblem
+{
+    private readonly IList<int> _testData = [-1, 0, 1, 2, -1, -4];
+
+    public void Solve()
+    {
+        var result = ThreeSum(_testData.ToArray());
+        foreach (var triplet in result)
+        {
+            Console.WriteLine($"[{string.Join(", ", triplet)}]");
+        }
+    }
+
+    private IList<IList<int>> ThreeSum(int[] nums)
+    {
+        Array.Sort(nums);
+
+        foreach (var item in nums)
+        {
+            Console.WriteLine(item);
+        }
+
+        return new List<IList<int>>();
+    }
+}
+
+//https://leetcode.com/problems/valid-parentheses/
+public class IsValidProblem : IProblem
+{
+    private const string V = "()[]";
+
+    public void Solve()
+    {
+        Console.WriteLine(IsValid(V));
+    }
+
+    private static bool IsValid(string s)
+    {
+        List<string> isOpen = ["(", "[", "{"];
+        List<string> isClosed = [")", "]", "}"];
+        var stack = new Stack<string>();
+
+        foreach (var item in s.ToCharArray())
+        {
+            var strItem = item.ToString();
+
+            if (isOpen.Contains(strItem))
+            {
+                stack.Push(strItem);
+            }
+            else if (isClosed.Contains(strItem))
+            {
+                if (stack.Count == 0 || isOpen[isClosed.IndexOf(strItem)] != stack.Pop())
+                {
+                    return false;
+                }
+            }
+        }
+
+        return stack.Count == 0;
+    }
+}
+
 //Test For Dictionary
 public class DictionaryTest : IMyTests
 {
@@ -578,7 +642,11 @@ internal abstract class Program
             // new CatAndMouseProblem()
             // new PickingNumbersProblem()
             // new PalindromeNumberProblem()
-            new LongestCommonPrefixProblem()
+            // new LongestCommonPrefixProblem()
+
+            //new ThreeSumProblem()
+
+            new IsValidProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 

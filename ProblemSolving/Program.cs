@@ -601,6 +601,29 @@ public class IsValidProblem : IProblem
     }
 }
 
+//https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+public class RemoveDuplicatesProblem : IProblem
+{
+    private readonly int[] _nums = [1, 1, 2];
+
+    public void Solve()
+    {
+        Console.WriteLine(RemoveDuplicates(_nums));
+    }
+
+    private static int RemoveDuplicates(int[] nums)
+    {
+        var i = 0;
+        for (var j = 0; j < nums.Length; j++)
+        {
+            if (nums[i] == nums[j]) continue;
+            i++;
+            nums[i] = nums[j];
+        }
+        return i + 1;
+    }
+}
+
 //Test For Dictionary
 public class DictionaryTest : IMyTests
 {
@@ -646,7 +669,9 @@ internal abstract class Program
 
             //new ThreeSumProblem()
 
-            new IsValidProblem()
+            // new IsValidProblem()
+            new RemoveDuplicatesProblem()
+            
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 

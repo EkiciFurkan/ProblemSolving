@@ -624,6 +624,24 @@ public class RemoveDuplicatesProblem : IProblem
     }
 }
 
+public class StrStrProblem : IProblem
+{
+    private const string Haystack = "sadbutsad";
+    private const string Needle = "but";
+
+    public void Solve()
+    {
+        Console.WriteLine(StrStr(Haystack, Needle));
+    }
+
+
+    private static int StrStr(string haystack, string needle)
+    {
+        if (haystack.Contains(needle)) return -1;
+        return haystack.IndexOf(needle, StringComparison.Ordinal);
+    }
+}
+
 //Test For Dictionary
 public class DictionaryTest : IMyTests
 {
@@ -670,8 +688,8 @@ internal abstract class Program
             //new ThreeSumProblem()
 
             // new IsValidProblem()
-            new RemoveDuplicatesProblem()
-            
+            // new RemoveDuplicatesProblem()
+            new StrStrProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 

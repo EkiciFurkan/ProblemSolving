@@ -620,6 +620,7 @@ public class RemoveDuplicatesProblem : IProblem
             i++;
             nums[i] = nums[j];
         }
+
         return i + 1;
     }
 }
@@ -639,6 +640,40 @@ public class StrStrProblem : IProblem
     {
         if (haystack.Contains(needle)) return -1;
         return haystack.IndexOf(needle, StringComparison.Ordinal);
+    }
+}
+
+// https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
+
+public class ClimbingLeaderboardProblem : IProblem
+{
+    private readonly List<int> _ranked = [100, 100, 50, 40, 40, 20, 10];
+    private readonly List<int> _player = [5, 25, 50, 120];
+
+    public void Solve()
+    {
+        var result = ClimbingLeaderboard(_ranked, _player);
+
+        foreach (var item in result)
+        {
+            Console.WriteLine(item);
+        }
+        
+    }
+
+    private static List<int> ClimbingLeaderboard(List<int> ranked, List<int> player)
+    {
+        var gropedRanked = ranked.GroupBy(x => x).Select(x => x.Key).ToList();
+
+        for (var i = 0; i < gropedRanked.Count; i++)
+        {
+            for (var j = 0; j < player.Count; j++)
+            {
+                
+            }
+        }
+
+        return [];
     }
 }
 
@@ -689,7 +724,8 @@ internal abstract class Program
 
             // new IsValidProblem()
             // new RemoveDuplicatesProblem()
-            new StrStrProblem()
+            //new StrStrProblem()
+            new ClimbingLeaderboardProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 

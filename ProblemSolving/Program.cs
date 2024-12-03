@@ -644,7 +644,6 @@ public class StrStrProblem : IProblem
 }
 
 // https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
-
 public class ClimbingLeaderboardProblem : IProblem
 {
     private readonly List<int> _ranked = [100, 100, 50, 40, 40, 20, 10];
@@ -658,7 +657,6 @@ public class ClimbingLeaderboardProblem : IProblem
         {
             Console.WriteLine(item);
         }
-        
     }
 
     private static List<int> ClimbingLeaderboard(List<int> ranked, List<int> player)
@@ -669,11 +667,64 @@ public class ClimbingLeaderboardProblem : IProblem
         {
             for (var j = 0; j < player.Count; j++)
             {
-                
             }
         }
 
         return [];
+    }
+}
+
+// https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
+public class DesignerPdfViewerProblem : IProblem
+{
+    private readonly List<int> _h = [1, 3, 1, 3, 1, 4, 1, 3, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
+    private const string Word = "abc";
+
+    public void Solve()
+    {
+        Console.WriteLine(DesignerPdfViewer(_h, Word));
+    }
+
+    private static int DesignerPdfViewer(List<int> h, string word)
+    {
+        return word.Select(c => h[c - 'a']).Max() * word.Length;
+    }
+}
+
+//https://leetcode.com/problems/divide-two-integers/description/
+public class DivideProblem : IProblem
+{
+    private const int X = 10;
+    private const int Y = 3;
+
+    public void Solve()
+    {
+        Console.WriteLine(Divide(X, Y));
+    }
+
+    private static int Divide(int dividend, int divisor)
+    {
+        return 4;
+    }
+}
+
+//https://leetcode.com/problems/search-insert-position/
+public class SearchInsertProblem : IProblem
+{
+    private readonly int[] _nums = [1,3,5,6];
+    private const int Target = 2;
+
+    public void Solve()
+    {
+        Console.WriteLine(SearchInsert(_nums, Target));
+    }
+
+    private static int SearchInsert(int[] nums, int target)
+    {
+        var ifIndex = Array.IndexOf(nums, target);
+        var index = nums.Count(t => target > t);
+
+        return ifIndex != 1 ? index : ifIndex;
     }
 }
 
@@ -725,7 +776,10 @@ internal abstract class Program
             // new IsValidProblem()
             // new RemoveDuplicatesProblem()
             //new StrStrProblem()
-            new ClimbingLeaderboardProblem()
+            // new ClimbingLeaderboardProblem()
+            //new DesignerPdfViewerProblem()
+            //new DivideProblem()
+            new SearchInsertProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 

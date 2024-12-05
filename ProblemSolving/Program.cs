@@ -711,7 +711,7 @@ public class DivideProblem : IProblem
 //https://leetcode.com/problems/search-insert-position/
 public class SearchInsertProblem : IProblem
 {
-    private readonly int[] _nums = [1,3,5,6];
+    private readonly int[] _nums = [1, 3, 5, 6];
     private const int Target = 2;
 
     public void Solve()
@@ -725,6 +725,78 @@ public class SearchInsertProblem : IProblem
         var index = nums.Count(t => target > t);
 
         return ifIndex != 1 ? index : ifIndex;
+    }
+}
+
+// https://leetcode.com/problems/valid-sudoku/description/
+public class IsValidSudokuProblem : IProblem
+{
+    private readonly char[][] _board =
+    [
+        ['5', '3', '.', '.', '7', '.', '.', '.', '.'],
+        ['6', '.', '.', '1', '9', '5', '.', '.', '.'],
+        ['.', '9', '8', '.', '.', '.', '.', '6', '.'],
+        ['8', '.', '.', '.', '6', '.', '.', '.', '3'],
+        ['4', '.', '.', '8', '.', '3', '.', '.', '1'],
+        ['7', '.', '.', '.', '2', '.', '.', '.', '6'],
+        ['.', '6', '.', '.', '.', '.', '2', '8', '.'],
+        ['.', '.', '.', '4', '1', '9', '.', '.', '5'],
+        ['.', '.', '.', '.', '8', '.', '.', '7', '9']
+    ];
+
+    public void Solve()
+    {
+        Console.WriteLine(IsValidSudoku(_board));
+    }
+
+    private static bool IsValidSudoku(char[][] board)
+    {
+        for (var i = 0; i < 9; i++)
+        {
+            var rowSet = new HashSet<char>();
+            for (var j = 0; j < 9; j++)
+            {
+                var num = board[i][j];
+                if (num != '.' && !rowSet.Add(num))
+                {
+                    return false;
+                }
+            }
+        }
+
+        for (var j = 0; j < 9; j++)
+        {
+            var colSet = new HashSet<char>();
+            for (var i = 0; i < 9; i++)
+            {
+                var num = board[i][j];
+                if (num != '.' && !colSet.Add(num))
+                {
+                    return false;
+                }
+            }
+        }
+        
+        for (var row = 0; row < 9; row += 3)
+        {
+            for (var col = 0; col < 9; col += 3)
+            {
+                var boxSet = new HashSet<char>();
+                for (var i = 0; i < 3; i++)
+                {
+                    for (var j = 0; j < 3; j++)
+                    {
+                        var num = board[row + i][col + j];
+                        if (num != '.' && !boxSet.Add(num))
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        
+        return true;
     }
 }
 
@@ -777,9 +849,10 @@ internal abstract class Program
             // new RemoveDuplicatesProblem()
             //new StrStrProblem()
             // new ClimbingLeaderboardProblem()
-            //new DesignerPdfViewerProblem()
-            //new DivideProblem()
-            new SearchInsertProblem()
+            // new DesignerPdfViewerProblem()
+            // new DivideProblem()
+            // new SearchInsertProblem()
+            new IsValidSudokuProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 

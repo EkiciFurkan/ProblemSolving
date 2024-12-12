@@ -800,6 +800,35 @@ public class IsValidSudokuProblem : IProblem
     }
 }
 
+
+//https://leetcode.com/problems/sudoku-solver/description/
+public class SolveSudokuProblem : IProblem
+{
+    private readonly char[][] _board =
+    [
+        ['5', '3', '.', '.', '7', '.', '.', '.', '.'],
+        ['6', '.', '.', '1', '9', '5', '.', '.', '.'],
+        ['.', '9', '8', '.', '.', '.', '.', '6', '.'],
+        ['8', '.', '.', '.', '6', '.', '.', '.', '3'],
+        ['4', '.', '.', '8', '.', '3', '.', '.', '1'],
+        ['7', '.', '.', '.', '2', '.', '.', '.', '6'],
+        ['.', '6', '.', '.', '.', '.', '2', '8', '.'],
+        ['.', '.', '.', '4', '1', '9', '.', '.', '5'],
+        ['.', '.', '.', '.', '8', '.', '.', '7', '9']
+    ];
+    
+    public void Solve()
+    {
+        Console.WriteLine(SolveSudoku);
+    }
+
+    private void SolveSudoku(char[][] board) {
+        Console.WriteLine("salidköasçdßæ");
+    }
+}
+
+
+
 //Test For Dictionary
 public class DictionaryTest : IMyTests
 {

@@ -776,7 +776,7 @@ public class IsValidSudokuProblem : IProblem
                 }
             }
         }
-        
+
         for (var row = 0; row < 9; row += 3)
         {
             for (var col = 0; col < 9; col += 3)
@@ -795,14 +795,13 @@ public class IsValidSudokuProblem : IProblem
                 }
             }
         }
-        
+
         return true;
     }
 }
 
-
 //https://leetcode.com/problems/sudoku-solver/description/
-public class SolveSudokuProblem : IProblem
+public class SolverSudokuProblem : IProblem
 {
     private readonly char[][] _board =
     [
@@ -816,18 +815,66 @@ public class SolveSudokuProblem : IProblem
         ['.', '.', '.', '4', '1', '9', '.', '.', '5'],
         ['.', '.', '.', '.', '8', '.', '.', '7', '9']
     ];
-    
+
     public void Solve()
     {
-        Console.WriteLine(SolveSudoku);
+        PrintBoard(_board);
     }
 
-    private void SolveSudoku(char[][] board) {
-        Console.WriteLine("salidköasçdßæ");
+    private static void PrintBoard(char[][] board)
+    {
+        for (var i = 0; i < board.Length; i++)
+        {
+            for (var j = 0; j < board[i].Length; j++)
+            {
+                Console.Write(board[i][j] + " ");
+
+                if ((j + 1) % 3 == 0 && j != board[i].Length - 1)
+                {
+                    Console.Write("| ");
+                }
+            }
+
+            Console.WriteLine();
+
+            if ((i + 1) % 3 == 0 && i != board.Length - 1)
+            {
+                Console.WriteLine("---------------------");
+            }
+        }
     }
 }
 
+// https://leetcode.com/problems/final-array-state-after-k-multiplication-operations-i/description/?envType=daily-question&envId=2024-12-16
+public class GetFinalStateProblem : IProblem
+{
+    private readonly int[] _nums = [2,1,3,5,6];
 
+    private const int OperationTime = 5;
+
+    private const int Multiplier = 2;
+
+    public void Solve()
+    {
+        foreach (var item in GetFinalState(_nums, OperationTime, Multiplier))
+        {
+            Console.WriteLine(item);
+        }
+    }
+
+    private static int[] GetFinalState(int[] nums, int k, int multiplier)
+    {
+        for (var i = 0; i < k; i++)
+        {
+            var min = nums.Min();
+            var minIndex = Array.IndexOf(nums, min);
+
+            nums[minIndex] *= multiplier;
+        }
+        
+        return nums;
+    }
+}
 
 //Test For Dictionary
 public class DictionaryTest : IMyTests
@@ -881,7 +928,9 @@ internal abstract class Program
             // new DesignerPdfViewerProblem()
             // new DivideProblem()
             // new SearchInsertProblem()
-            new IsValidSudokuProblem()
+            // new IsValidSudokuProblem()
+            // new SolverSudokuProblem()
+            new GetFinalStateProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 

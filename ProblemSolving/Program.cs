@@ -1,4 +1,5 @@
-﻿using System.Threading.Channels;
+﻿using System.Text;
+using System.Threading.Channels;
 
 namespace ProblemSolving;
 
@@ -643,59 +644,40 @@ public class StrStrProblem : IProblem
     }
 }
 
-// https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
+// https://leetcode.com/problems/count-and-say/
 
-public class ClimbingLeaderboardProblem : IProblem
+public class CountAndSayProblem : IProblem
 {
-    private readonly List<int> _ranked = [100, 100, 50, 40, 40, 20, 10];
-    private readonly List<int> _player = [5, 25, 50, 120];
+    private const int K = 4;
 
     public void Solve()
     {
-        var result = ClimbingLeaderboard(_ranked, _player);
-
-        foreach (var item in result)
-        {
-            Console.WriteLine(item);
-        }
-        
+        Console.WriteLine(CountAndSay(K));
     }
 
-    private static List<int> ClimbingLeaderboard(List<int> ranked, List<int> player)
+    private static string CountAndSay(int n)
     {
-        var gropedRanked = ranked.GroupBy(x => x).Select(x => x.Key).ToList();
-
-        for (var i = 0; i < gropedRanked.Count; i++)
+        // String Builder kullanılacak
+        var result = new StringBuilder();
+        for (var i = 0; i < n; i++)
         {
-            for (var j = 0; j < player.Count; j++)
+            var baseText = "";
+            var counter = 0;
+            
+            if (baseText.Length != 0 && baseText[i] == baseText[i - 1])
             {
-                
+                counter++;
+                Console.WriteLine(counter);
+            }
+            else
+            {
+                baseText += "1";
+                Console.WriteLine(baseText);
             }
         }
+        // Console.WriteLine(test.GroupBy(x => x).Select(group => new { Name = group.Key, Count = group.Count()}).OrderByDescending(x => x.Count).ToList());
 
-        return [];
-    }
-}
-
-//Test For Dictionary
-public class DictionaryTest : IMyTests
-{
-    private readonly Dictionary<string, List<string>> _test = new();
-
-    public void Solve()
-    {
-        _test.Add("test1", ["1", "2", "3"]);
-        _test.Add("test2", ["4", "5", "6"]);
-        _test.Add("test3", ["7", "8", "9"]);
-
-        foreach (var (key, value) in _test)
-        {
-            Console.Write(key);
-            foreach (var item in value)
-            {
-                Console.WriteLine($"\t{item}");
-            }
-        }
+        return "";
     }
 }
 
@@ -725,26 +707,13 @@ internal abstract class Program
             // new IsValidProblem()
             // new RemoveDuplicatesProblem()
             //new StrStrProblem()
-            new ClimbingLeaderboardProblem()
+            new CountAndSayProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 
         foreach (var problem in problems)
         {
             problem.Solve();
-        }
-
-        // Tests
-
-        var tests = new List<IMyTests>
-        {
-            // new DictionaryTest()
-        };
-        if (tests == null) throw new ArgumentNullException(nameof(tests));
-
-        foreach (var test in tests)
-        {
-            test.Solve();
         }
     }
 }

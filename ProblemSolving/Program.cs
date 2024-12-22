@@ -658,7 +658,6 @@ public class ClimbingLeaderboardProblem : IProblem
         {
             Console.WriteLine(item);
         }
-        
     }
 
     private static List<int> ClimbingLeaderboard(List<int> ranked, List<int> player)
@@ -669,13 +668,13 @@ public class ClimbingLeaderboardProblem : IProblem
         {
             for (var j = 0; j < player.Count; j++)
             {
-                
             }
         }
 
         return [];
     }
 }
+
 // https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
 public class DesignerPdfViewerProblem : IProblem
 {
@@ -850,7 +849,7 @@ public class SolverSudokuProblem : IProblem
 // https://leetcode.com/problems/final-array-state-after-k-multiplication-operations-i/description/?envType=daily-question&envId=2024-12-16
 public class GetFinalStateProblem : IProblem
 {
-    private readonly int[] _nums = [2,1,3,5,6];
+    private readonly int[] _nums = [2, 1, 3, 5, 6];
 
     private const int OperationTime = 5;
 
@@ -873,7 +872,7 @@ public class GetFinalStateProblem : IProblem
 
             nums[minIndex] *= multiplier;
         }
-        
+
         return nums;
     }
 }

@@ -644,6 +644,7 @@ public class StrStrProblem : IProblem
 }
 
 // https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem?isFullScreen=true
+
 public class ClimbingLeaderboardProblem : IProblem
 {
     private readonly List<int> _ranked = [100, 100, 50, 40, 40, 20, 10];
@@ -657,6 +658,7 @@ public class ClimbingLeaderboardProblem : IProblem
         {
             Console.WriteLine(item);
         }
+        
     }
 
     private static List<int> ClimbingLeaderboard(List<int> ranked, List<int> player)
@@ -667,13 +669,13 @@ public class ClimbingLeaderboardProblem : IProblem
         {
             for (var j = 0; j < player.Count; j++)
             {
+                
             }
         }
 
         return [];
     }
 }
-
 // https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?isFullScreen=true
 public class DesignerPdfViewerProblem : IProblem
 {
@@ -876,25 +878,20 @@ public class GetFinalStateProblem : IProblem
     }
 }
 
-//Test For Dictionary
-public class DictionaryTest : IMyTests
+// https://leetcode.com/problems/length-of-last-word/description/
+
+public class LenghtOfLastWordProblem : IProblem
 {
-    private readonly Dictionary<string, List<string>> _test = new();
+    private const string S = "   fly me   to   the moon  ";
 
     public void Solve()
     {
-        _test.Add("test1", ["1", "2", "3"]);
-        _test.Add("test2", ["4", "5", "6"]);
-        _test.Add("test3", ["7", "8", "9"]);
+        Console.WriteLine(LengthOfLastWord(S));
+    }
 
-        foreach (var (key, value) in _test)
-        {
-            Console.Write(key);
-            foreach (var item in value)
-            {
-                Console.WriteLine($"\t{item}");
-            }
-        }
+    private static int LengthOfLastWord(string s)
+    {
+        return s.Trim().Split(' ')[^1].Length;
     }
 }
 
@@ -923,33 +920,15 @@ internal abstract class Program
 
             // new IsValidProblem()
             // new RemoveDuplicatesProblem()
-            //new StrStrProblem()
-            // new ClimbingLeaderboardProblem()
-            // new DesignerPdfViewerProblem()
-            // new DivideProblem()
-            // new SearchInsertProblem()
-            // new IsValidSudokuProblem()
-            // new SolverSudokuProblem()
-            new GetFinalStateProblem()
+            // new StrStrProblem()
+            // new CountAndSayProblem()
+            new LenghtOfLastWordProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 
         foreach (var problem in problems)
         {
             problem.Solve();
-        }
-
-        // Tests
-
-        var tests = new List<IMyTests>
-        {
-            // new DictionaryTest()
-        };
-        if (tests == null) throw new ArgumentNullException(nameof(tests));
-
-        foreach (var test in tests)
-        {
-            test.Solve();
         }
     }
 }

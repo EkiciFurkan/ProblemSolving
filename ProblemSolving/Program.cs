@@ -1,4 +1,6 @@
-﻿using System.Threading.Channels;
+﻿using System.Numerics;
+using System.Security.Cryptography;
+using System.Threading.Channels;
 
 namespace ProblemSolving;
 
@@ -878,7 +880,6 @@ public class GetFinalStateProblem : IProblem
 }
 
 // https://leetcode.com/problems/length-of-last-word/description/
-
 public class LenghtOfLastWordProblem : IProblem
 {
     private const string S = "   fly me   to   the moon  ";
@@ -891,6 +892,26 @@ public class LenghtOfLastWordProblem : IProblem
     private static int LengthOfLastWord(string s)
     {
         return s.Trim().Split(' ')[^1].Length;
+    }
+}
+
+// https://leetcode.com/problems/plus-one/description/
+public class PlusOneProblem : IProblem
+{
+    private readonly int[] _digits = [9,8,7,6,5,4,3,2,1,0];
+
+    public void Solve()
+    {
+        Console.WriteLine(PlusOne(_digits));
+    }
+
+    private static int[] PlusOne(int[] digits)
+    {
+        var  combinedNumber = BigInteger.Parse(string.Join("", digits)) + 1;
+
+        var resultArray = combinedNumber.ToString().Select(c => int.Parse(c.ToString())).ToArray();
+        
+        return resultArray;
     }
 }
 
@@ -921,7 +942,8 @@ internal abstract class Program
             // new RemoveDuplicatesProblem()
             // new StrStrProblem()
             // new CountAndSayProblem()
-            new LenghtOfLastWordProblem()
+            // new LenghtOfLastWordProblem()
+            new PlusOneProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 

@@ -681,6 +681,23 @@ public class CountAndSayProblem : IProblem
     }
 }
 
+// https://leetcode.com/problems/length-of-last-word/description/
+
+public class LenghtOfLastWordProblem : IProblem
+{
+    private const string S = "   fly me   to   the moon  ";
+
+    public void Solve()
+    {
+        Console.WriteLine(LengthOfLastWord(S));
+    }
+
+    private static int LengthOfLastWord(string s)
+    {
+        return s.Trim().Split(' ')[^1].Length;
+    }
+}
+
 internal abstract class Program
 {
     private static void Main()
@@ -706,8 +723,9 @@ internal abstract class Program
 
             // new IsValidProblem()
             // new RemoveDuplicatesProblem()
-            //new StrStrProblem()
-            new CountAndSayProblem()
+            // new StrStrProblem()
+            // new CountAndSayProblem()
+            new LenghtOfLastWordProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 

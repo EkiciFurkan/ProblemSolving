@@ -898,7 +898,7 @@ public class LenghtOfLastWordProblem : IProblem
 // https://leetcode.com/problems/plus-one/description/
 public class PlusOneProblem : IProblem
 {
-    private readonly int[] _digits = [9,8,7,6,5,4,3,2,1,0];
+    private readonly int[] _digits = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
 
     public void Solve()
     {
@@ -907,11 +907,130 @@ public class PlusOneProblem : IProblem
 
     private static int[] PlusOne(int[] digits)
     {
-        var  combinedNumber = BigInteger.Parse(string.Join("", digits)) + 1;
+        var combinedNumber = BigInteger.Parse(string.Join("", digits)) + 1;
 
         var resultArray = combinedNumber.ToString().Select(c => int.Parse(c.ToString())).ToArray();
-        
+
         return resultArray;
+    }
+}
+
+// https://leetcode.com/problems/add-binary/description/
+public class AddBinaryProblem : IProblem
+{
+    private const string A = "11";
+    private const string B = "1";
+
+    public void Solve()
+    {
+        Console.WriteLine(AddBinary(A, B));
+    }
+
+    private static string AddBinary(string a, string b)
+    {
+        const int val = 12;
+        Console.Write(Convert.ToString(val, 2));
+        //   Console.WriteLine((binary)11 + 1);
+
+        return "4";
+        //return Convert.ToString(int.Parse(a) + int.Parse(b), 2);
+    }
+}
+
+// https://leetcode.com/problems/sqrtx/
+public class MySqrtProblem : IProblem
+{
+    private const int X = 8;
+
+    public void Solve()
+    {
+        Console.WriteLine(MySqrt(X));
+    }
+
+    private static int MySqrt(int x)
+    {
+        return Convert.ToInt32(Math.Round(Math.Sqrt(x), MidpointRounding.ToZero));
+    }
+}
+
+// https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+public class MaxProfitProblem : IProblem
+{
+    private readonly int[] _x = [7, 1, 5, 3, 6, 4];
+
+    public void Solve()
+    {
+        Console.WriteLine(MaxProfit(_x));
+    }
+
+    private static int MaxProfit(int[] prices)
+    {
+        if (prices.Length < 2)
+        {
+            return 0;
+        }
+
+        var minPrice = prices[0];
+        var maxProfit = 0;
+
+        foreach (var t in prices)
+        {
+            if (t < minPrice)
+            {
+                minPrice = t;
+            }
+
+            var potantialProfit = t - minPrice;
+
+            if (potantialProfit > maxProfit)
+            {
+                maxProfit = potantialProfit;
+            }
+        }
+
+        return maxProfit;
+    }
+}
+
+// https://leetcode.com/problems/remove-duplicates-from-sorted-list/description/
+public class DeleteDuplicatesProblem : IProblem
+{
+    public class ListNode(int val = 0, ListNode? next = null)
+    {
+        public readonly int val = val;
+        public ListNode? next = next;
+    }
+
+    public void Solve()
+    {
+        var test =
+            new ListNode(1,
+                new ListNode(1,
+                    new ListNode(2)
+                )
+            );
+
+        Console.WriteLine(DeleteDuplicates(test));
+    }
+
+    private static ListNode? DeleteDuplicates(ListNode? head)
+    {
+        if (head == null) return null;
+    
+        var current = head;
+    
+        while (current != null && current.next != null)
+        {
+            if (current.val == current.next.val)
+            {
+                current.next = current.next.next;
+            }
+            else
+            {
+                current = current.next;
+            }
+        }
+        return head;
     }
 }
 
@@ -943,7 +1062,11 @@ internal abstract class Program
             // new StrStrProblem()
             // new CountAndSayProblem()
             // new LenghtOfLastWordProblem()
-            new PlusOneProblem()
+            // new PlusOneProblem()
+            // new AddBinaryProblem()
+            // new MySqrtProblem()
+            // new MaxProfitProblem()
+            new DeleteDuplicatesProblem()
         };
         if (problems == null) throw new ArgumentNullException(nameof(problems));
 
